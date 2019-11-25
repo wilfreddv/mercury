@@ -6,7 +6,7 @@ import loader
 
 try:
     Loader = {'static': loader.StaticLoader,
-              'wsgi': loader.DummyLoader
+              'wsgi': loader.WsgiLoader
              }[config['LOAD']]
 except KeyError:
     Loader = loader.DummyLoader
@@ -41,7 +41,7 @@ class Client:
                 response = Response(200, icon, "image/gif")
                 self.send(response)
             else:
-                l = Loader(request['route'])
+                l = Loader(request)
                 response = Response(l.status, l.data)
         except FileNotFoundError:
             if os.path.isfile(f"{BASE_DIR}/404.html"):

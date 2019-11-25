@@ -6,10 +6,10 @@ import jinja2
 
 
 class StaticLoader:
-    def __init__(self, route):
+    def __init__(self, request):
         BASE = config['HOME_DIR']
         
-        path = f"{BASE}{route}"
+        path = f"{BASE}{request['route']}"
         
         if isdir(path):
             self.status = 200
@@ -39,7 +39,13 @@ class StaticLoader:
         return data
 
 
+class WsgiLoader:
+    def __init__(self, request):
+        self.status = 200
+        self.data = """"<h3>Should be generated using a WSGI app</h3>"""
+
+
 class DummyLoader:
-    def __init__(self, route):
+    def __init__(self, request):
         self.status = 200
         self.data = """<h3>Hello World!</h3>"""
