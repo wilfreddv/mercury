@@ -1,0 +1,6 @@
+{
+    "HOST": "localhost",
+    "PORT": 5000,
+    "HOME_DIR": "/mnt/d/programming/mercury/test",
+    "LOAD": "static"
+}
