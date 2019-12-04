@@ -1,5 +1,6 @@
 from request import parse_request
 from config import config
+from datetime import datetime
 import os
 
 import loader
@@ -61,9 +62,18 @@ class Client:
         """
         Log request and errors
         """
+        now = datetime.now()
+
+        timestamp = f"[ {now.day}-{now.month}-{now.year} -- {now.hour}:{now.minute}:{now.second} ] "
+        log_data = ""
+
+        with open(logfiles[0], 'a') as f:
+            f.write(f"{timestamp} {log_data}")
 
         if self._errors:
-            "Write to error log"
+            with open(logfiles[1], 'a') as f:
+                for err in self._errors:
+                    f.write(f"{timestamp} {err}\n")
 
 
     def __enter__(self):
