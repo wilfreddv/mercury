@@ -59,6 +59,11 @@ class Client:
         self.socket.send(response)
 
 
+    def log(self):
+        """
+        Log request and errors
+        """
+
     def __enter__(self):
         return self
 

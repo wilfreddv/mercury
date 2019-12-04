@@ -20,5 +20,6 @@ while True:
         try:
             client.get_request()
             client.handle_request()
+            client.log()
         except BrokenPipeError:
             print("Broken Pipe Error... ffs.")
