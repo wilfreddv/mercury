@@ -20,10 +20,12 @@ class Client:
     def __init__(self, socket, _):
          self.socket = socket
          self._errors = []
+         self._log_data = ""
 
 
     def get_request(self):
         self.request = self.socket.recv(1024).decode()
+        self._log_data += '"' + self.request.split('\n')[0].strip() + '"'
         return self.request
 
 
@@ -35,6 +37,7 @@ class Client:
 
         if '400' in request:
             self.send(Response(400, "Bad Request"))
+            status_code = 400
             return
 
         try:
@@ -42,16 +45,20 @@ class Client:
                 icon = open(f"{BASE_DIR}/favicon.ico", "rb").read()
                 response = Response(200, icon, "image/gif")
                 self.send(response)
+                status_code = 200
             else:
                 l = Loader(request)
                 response = Response(l.status, l.data)
+                status_code = l.status
         except FileNotFoundError:
             if os.path.isfile(f"{BASE_DIR}/404.html"):
                 data = open(f"{BASE_DIR}/404.html").read()
             else:
                 data = open("/etc/mercury/html/404.html").read()
             response = Response(404, data)
+            status_code = 404
 
+        self._log_data += f" {status_code}"
         self.send(response)
 
 
@@ -65,12 +72,10 @@ class Client:
         Log request and errors
         """
         now = datetime.now()
-        now.strftime("[ %d-%b-%Y -- %H:%M:%S ]")
-        timestamp = str(now)
-        log_data = ""
+        timestamp = now.strftime("[ %d-%m-%Y - %H:%M:%S ]")
 
         with open(logfiles[0], 'a') as f:
-            f.write(f"{timestamp} {log_data}\n")
+            f.write(f"{timestamp} {self._log_data}\n")
 
         if self._errors:
             with open(logfiles[1], 'a') as f:
