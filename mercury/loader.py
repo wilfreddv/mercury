@@ -9,7 +9,8 @@ class StaticLoader:
     def __init__(self, request):
         BASE = config['HOME_DIR']
         
-        path = f"{BASE}{request['route']}"
+        route = request['route']
+        path = f"{BASE}{route}"
         
         if isdir(path):
             self.status = 200
