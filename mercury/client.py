@@ -52,6 +52,8 @@ class Client:
                 data = open("/etc/mercury/html/404.html").read()
             response = Response(404, data)
 
+        self.send(response)
+
 
     def send(self, response):
         response = response.serialize()
@@ -68,7 +70,7 @@ class Client:
         log_data = ""
 
         with open(logfiles[0], 'a') as f:
-            f.write(f"{timestamp} {log_data}")
+            f.write(f"{timestamp} {log_data}\n")
 
         if self._errors:
             with open(logfiles[1], 'a') as f:
