@@ -64,7 +64,7 @@ class Client:
         """
         now = datetime.now()
         now.strftime("[ %d-%b-%Y -- %H:%M:%S ]")
-        timestap = str(now)
+        timestamp = str(now)
         log_data = ""
 
         with open(logfiles[0], 'a') as f:
