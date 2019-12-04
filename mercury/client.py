@@ -63,8 +63,8 @@ class Client:
         Log request and errors
         """
         now = datetime.now()
-
-        timestamp = f"[ {now.day}-{now.month}-{now.year} -- {now.hour}:{now.minute}:{now.second} ] "
+        now.strftime("[ %d-%b-%Y -- %H:%M:%S ]")
+        timestap = str(now)
         log_data = ""
 
         with open(logfiles[0], 'a') as f:
