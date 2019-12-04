@@ -13,6 +13,9 @@ server_socket.bind((config['HOST'], int(config['PORT'])))
 server_socket.listen()
 
 
+logfiles = ['access_log', 'error_log']
+
+
 while True:
     c_sock, addr = server_socket.accept()
 
@@ -20,6 +23,6 @@ while True:
         try:
             client.get_request()
             client.handle_request()
-            client.log()
+            client.log(logfiles)
         except BrokenPipeError:
             print("Broken Pipe Error... ffs.")

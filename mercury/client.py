@@ -18,6 +18,7 @@ from response import Response
 class Client:
     def __init__(self, socket, _):
          self.socket = socket
+         self._errors = []
 
 
     def get_request(self):
@@ -49,9 +50,6 @@ class Client:
             else:
                 data = open("/etc/mercury/html/404.html").read()
             response = Response(404, data)
-        
-        if self.send(response) != None:
-            print("Error writing to socket")
 
 
     def send(self, response):
@@ -59,10 +57,14 @@ class Client:
         self.socket.send(response)
 
 
-    def log(self):
+    def log(self, logfiles):
         """
         Log request and errors
         """
+
+        if self._errors:
+            "Write to error log"
+
 
     def __enter__(self):
         return self
