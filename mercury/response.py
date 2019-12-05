@@ -17,7 +17,7 @@ class Response:
 
 
     def serialize(self):
-        if self.content_type == "image/gif":
+        if self.content_type in ["image/webp", "image/gif"]:
             payload = bytes(self._payload, "utf-8")
             payload += self.data
         else:
