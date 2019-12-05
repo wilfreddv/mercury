@@ -34,7 +34,7 @@ class Client:
         # If it's static, we can just route it, otherwise load that onto the framework
 
         request = parse_request(self.request)
-
+        mime = request['Accept'].split(',')[0]
         if '400' in request:
             self.send(Response(400, "Bad Request"))
             status_code = 400
@@ -48,7 +48,7 @@ class Client:
                 status_code = 200
             else:
                 l = Loader(request)
-                response = Response(l.status, l.data)
+                response = Response(l.status, l.data, content_type=mime)
                 status_code = l.status
         except FileNotFoundError:
             if os.path.isfile(f"{BASE_DIR}/404.html"):
