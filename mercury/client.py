@@ -34,7 +34,12 @@ class Client:
         # If it's static, we can just route it, otherwise load that onto the framework
 
         request = parse_request(self.request)
-        mime = request['Accept'].split(',')[0]
+
+        if 'Accept' in request:
+            mime = request['Accept'].split(',')[0]
+        else:
+            mime = "*/*"
+
         if '400' in request:
             self.send(Response(400, "Bad Request"))
             status_code = 400
