@@ -18,7 +18,7 @@ class StaticLoader:
                 self.data = open(path, "rb").read()
                 self.status = 200
             except FileNotFoundError:
-                self.data = ""
+                self.data = bytes("", 'utf-8')
                 self.status = 400
 
         elif isdir(path):
