@@ -12,12 +12,22 @@ class StaticLoader:
         route = request['route']
         path = f"{BASE}{route}"
         
-        if isdir(path):
+        
+        if request['route'] == "/favicon.ico":
+            try:
+                self.data = open(path, "rb").read()
+                self.status = 200
+            except FileNotFoundError:
+                self.data = ""
+                self.status = 400
+
+        elif isdir(path):
             self.status = 200
             if isfile(f"{path}/index.html"):
                 self.data = open(f"{path}/index.html", "r").read()
             else:
                 self.data = self._build_dir_list(route, path)
+        
         elif not isfile(path):
             self.status = 404
             if isfile(f"{BASE}/404.html"):
@@ -25,6 +35,7 @@ class StaticLoader:
             else:
                 f = "/etc/mercury/html/404.html"
             self.data = open(f, "r").read()
+        
         else:
             self.status = 200
             self.data = open(path, "r").read()

@@ -46,15 +46,9 @@ class Client:
             return
 
         try:
-            if request['route'] == "/favicon.ico":
-                icon = open(f"{BASE_DIR}/favicon.ico", "rb").read()
-                response = Response(200, icon, "image/gif")
-                self.send(response)
-                status_code = 200
-            else:
-                l = Loader(request)
-                response = Response(l.status, l.data, content_type=mime)
-                status_code = l.status
+            l = Loader(request)
+            response = Response(l.status, l.data, content_type=mime)
+            status_code = l.status
         except FileNotFoundError:
             if os.path.isfile(f"{BASE_DIR}/404.html"):
                 data = open(f"{BASE_DIR}/404.html").read()
