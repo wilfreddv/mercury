@@ -15,7 +15,6 @@ class Response:
         self._payload+= f"""Content-Length: {len(data)}\n\n"""
         
 
-
     def serialize(self):
         if self.content_type in ["image/webp", "image/gif"]:
             payload = bytes(self._payload, "utf-8")

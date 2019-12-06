@@ -65,7 +65,6 @@ class Client:
         response = response.serialize()
         self.socket.send(response)
 
-
     def log(self, logfiles):
         """
         Log request and errors

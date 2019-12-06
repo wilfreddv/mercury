@@ -26,3 +26,4 @@ while True:
             client.log(logfiles)
         except BrokenPipeError:
             print("Broken Pipe Error... ffs.")
+            
