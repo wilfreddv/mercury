@@ -13,7 +13,7 @@ server_socket.bind((config['HOST'], int(config['PORT'])))
 server_socket.listen()
 
 
-logfiles = ['access_log', 'error_log']
+logfiles = ['/etc/mercury/log/access_log', '/etc/mercury/log/error_log']
 
 
 while True:
