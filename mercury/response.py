@@ -24,5 +24,5 @@ class Response:
                 payload += bytes(self.data, 'utf-8')
         else:
             payload = self._payload + self.data
-            payload = bytes(payload, "utf-8")
+            payload = bytes(payload, 'utf-8')
         return payload
