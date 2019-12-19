@@ -45,17 +45,9 @@ class Client:
             status_code = 400
             return
 
-        try:
-            l = Loader(request)
-            response = Response(l.status, l.data, content_type=mime)
-            status_code = l.status
-        except FileNotFoundError:
-            if os.path.isfile(f"{BASE_DIR}/404.html"):
-                data = open(f"{BASE_DIR}/404.html").read()
-            else:
-                data = open("/etc/mercury/html/404.html").read()
-            response = Response(404, data)
-            status_code = 404
+        l = Loader(request)
+        response = Response(l.status, l.data, content_type=mime)
+        status_code = l.status
 
         self._log_data += f" {status_code}"
         self.send(response)
@@ -64,6 +56,7 @@ class Client:
     def send(self, response):
         response = response.serialize()
         self.socket.send(response)
+
 
     def log(self, logfiles):
         """

@@ -11,8 +11,8 @@ class Response:
         self.content_type = content_type
         self.data = data
         self._payload = f"""HTTP/1.1 {RESPONSE_CODES[response_code]}\n"""
-        self._payload+= f"""Content-Type: {content_type}; charset=UTF-8\n"""
-        self._payload+= f"""Content-Length: {len(data)}\n\n"""
+        self._payload+= f"""Content-Type: {content_type};charset=UTF-8\n"""
+        self._payload+= f"""Content-Length: {len(data.encode('utf-8'))}\n\n"""
         
 
     def serialize(self):
