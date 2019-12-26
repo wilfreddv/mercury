@@ -12,8 +12,10 @@ class Response:
         self.data = data
         self._payload = f"""HTTP/1.1 {RESPONSE_CODES[response_code]}\n"""
         self._payload+= f"""Content-Type: {content_type};charset=UTF-8\n"""
-        self._payload+= f"""Content-Length: {len(data.encode('utf-8'))}\n\n"""
-        
+        try:
+            self._payload+= f"""Content-Length: {len(data.encode('utf-8'))}\n\n"""
+        except AttributeError:
+            self._payload+= f"""Content-Length: {len(data)}\n\n"""
 
     def serialize(self):
         if self.content_type in ["image/webp", "image/gif"]:
