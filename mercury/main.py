@@ -2,7 +2,9 @@ import socket
 import json
 from client import Client
 import os
+import sys
 
+from util import error
 from config import config
 
 
@@ -24,6 +26,7 @@ while True:
             client.get_request()
             client.handle_request()
             client.log(logfiles)
-        except BrokenPipeError:
-            print("Broken Pipe Error... ffs.")
-            
+        except KeyboardInterrupt:
+            break
+        except Exception as e:
+            error(e, logfiles[1])
